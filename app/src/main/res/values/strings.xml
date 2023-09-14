@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">FlightsApp</string>
+
+    <!--    Splash screen-->
+    <string name="splash_plane_image">plane_image</string>
+    <string name="splash_card_splash_title">Please sign in or sign up to confirm &amp; view your itinerary</string>
+    <string name="splash_sign_up">Sign Up</string>
+    <string name="splash_sign_in">Sign In</string>
+
+    <!--    Sign in screen-->
+    <string name="login_card_title">Welcome back!</string>
+    <string name="login_sign_in_btn">Sign In</string>
+    <string name="login_no_account">Don\'t have an account?</string>
+    <string name="login_create_account">Create account</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_email_hint">Email Address</string>
+    <string name="login_forgot_password_button">Forgot password?</string>
+
+    <!--    Sign up screen-->
+    <string name="register_card_title">Tell us about yourself</string>
+    <string name="register_name_hint">Full Name</string>
+    <string name="register_email_hint">Email Address</string>
+    <string name="register_phone_hint">Phone Number</string>
+    <string name="register_password_hint">Password</string>
+    <string name="register_terms_statement">I agree to the Terms of Services and Privacy Policy</string>
+    <string name="register_create_account">Create account</string>
+    <string name="register_have_account">Already have an account?</string>
+    <string name="register_sign_in">Sign in</string>
+
+    <string name="input_error_empty_name">Field cannot be empty</string>
+    <string name="input_error_email">Email format is incorrect</string>
+    <string name="input_error_phone">Phone number is incorrect</string>
+    <string name="input_error_pass_length">Password should be at least 10 characters long</string>
+    <string name="input_error_pass_uppercase">Password should contain at least 1 uppercase letter</string>
+    <string name="input_error_pass_special_char">\"Password should contain at least one of the special characters: . # ! ? \"</string>
+    <string name="input_error_pass_digit">Password should contain at least 1 digit</string>
+    <string name="error_something_went_wrong">Something went wrong...</string>
+
+    <!--    Search screen-->
+    <string name="search_hello_title">Hello</string>
+    <string name="search_subtitle">Plan your next travel</string>
+    <string name="search_round_trip_option">Round trip</string>
+    <string name="search_one_way_option">One way</string>
+    <string name="search_from_label">From</string>
+    <string name="search_to_label">To</string>
+    <string name="search_depart_date_label">Depart</string>
+    <string name="search_return_date_label">Return</string>
+    <string name="search_search_flight_button">Search flight</string>
+
+</resources>

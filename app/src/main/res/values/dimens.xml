@@ -1,0 +1,22 @@
+<resources>
+    <dimen name="space_xxs">8dp</dimen>
+    <dimen name="space_xs">10dp</dimen>
+    <dimen name="space_s">12dp</dimen>
+    <dimen name="space_m">18dp</dimen>
+    <dimen name="space_l">24dp</dimen>
+    <dimen name="space_xl">34dp</dimen>
+    <dimen name="space_xxl">42dp</dimen>
+    <dimen name="space_xxxl">72dp</dimen>
+
+    <dimen name="settings_tile_height">88dp</dimen>
+
+    <dimen name="font_s">13sp</dimen>
+    <dimen name="font_m">18sp</dimen>
+    <dimen name="font_l">20sp</dimen>
+    <dimen name="font_xl">28sp</dimen>
+
+    <dimen name="cardview_radius">20dp</dimen>
+    <dimen name="toolbar_top_margin">64dp</dimen>
+
+    <dimen name="buttonHeight">46dp</dimen>
+</resources>

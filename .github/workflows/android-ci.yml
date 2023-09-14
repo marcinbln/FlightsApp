@@ -1,0 +1,37 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+
+  workflow_dispatch:
+
+    concurrency:
+      cancel-in-progress: true
+
+jobs:
+  Checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 18
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Check Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Run detect check
+        run: ./gradlew detekt
+
+      - name: Execute Gradle build
+        run: ./gradlew build

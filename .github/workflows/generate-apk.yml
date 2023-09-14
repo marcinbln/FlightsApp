@@ -1,0 +1,32 @@
+name: Manual APK Generation
+
+on:
+  workflow_dispatch:
+    concurrency:
+      cancel-in-progress: true
+
+jobs:
+  GenerateAPK:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 18
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Generate debug APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload APK artifact
+        if: success()
+        uses: actions/upload-artifact@v2
+        with:
+          name: debug-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
