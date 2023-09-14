@@ -1,10 +1,13 @@
 package com.example.flightsapp.ui.screens.loadingScreen
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.flightsapp.core.common.DevicePreviews
 import com.example.flightsapp.core.common.ui.LoadingIndicator
 
@@ -15,7 +18,7 @@ fun LoadingRoute(
     onSignedOut: () -> Unit
 
 ) {
-    val loadingState by splashViewModel.loadingState.collectAsState()
+    val loadingState by splashViewModel.loadingState.collectAsStateWithLifecycle()
     LoadingScreen(
         loadingState = loadingState,
         onSignedIn = onSignedIn,
@@ -29,10 +32,12 @@ private fun LoadingScreen(
     onSignedIn: () -> Unit,
     onSignedOut: () -> Unit
 ) {
-    when (loadingState) {
-        LoadingState.Loading -> LoadingIndicator()
-        LoadingState.SignedIn -> LaunchedEffect(Unit) { onSignedIn() }
-        LoadingState.SignedOut -> LaunchedEffect(Unit) { onSignedOut() }
+    Box(modifier = Modifier.fillMaxSize()) {
+        when (loadingState) {
+            LoadingState.Loading -> LoadingIndicator()
+            LoadingState.SignedIn -> LaunchedEffect(Unit) { onSignedIn() }
+            LoadingState.SignedOut -> LaunchedEffect(Unit) { onSignedOut() }
+        }
     }
 }
 

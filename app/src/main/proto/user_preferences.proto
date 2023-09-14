@@ -1,9 +1,13 @@
 syntax = "proto3";
+import "dark_theme_config.proto";
 
 option java_package = "com.example.flightsapp.dataStore";
 option java_multiple_files = true;
 
 message UserPreferences {
-  bool darkMode = 1;
-  string language = 2;
+  // bool darkMode = 1;
+  //string language = 1;
+  DarkThemeConfigProto dark_theme_config = 1;
+  bool dynamic_colors = 2;
+
 }

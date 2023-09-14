@@ -3,7 +3,7 @@ package com.example.flightsapp.ui.screens.loadingScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.flightsapp.core.data.repositories.auth.AuthenticationRepository
-import com.example.flightsapp.core.data.repositories.userPreferences.local.UserPreferencesRepository
+import com.example.flightsapp.core.data.repositories.userPreferences.UserPreferencesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first

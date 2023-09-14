@@ -3,7 +3,7 @@ package com.example.flightsapp.ui.screens.signIn
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.flightsapp.R
-import com.example.flightsapp.core.common.AppResult
+import com.example.flightsapp.core.common.WorkResult
 import com.example.flightsapp.core.common.errors.ErrorStringRes
 import com.example.flightsapp.core.domain.useCases.LoginUseCase
 import com.example.flightsapp.ui.screens.signIn.model.SignInState
@@ -43,8 +43,8 @@ class SignInViewModel @Inject constructor(
                     val result =
                         loginUseCase(signInState.value.email, signInState.value.password)
                 ) {
-                    is AppResult.Error -> _signInState.update { it.copy(registerError = result.error) }
-                    is AppResult.Success -> _signInState.update { it.copy(registrationComplete = true) }
+                    is WorkResult.Error -> _signInState.update { it.copy(registerError = result.error) }
+                    is WorkResult.Success -> _signInState.update { it.copy(registrationComplete = true) }
                 }
 
                 _signInState.update { it.copy(isLoading = false) }

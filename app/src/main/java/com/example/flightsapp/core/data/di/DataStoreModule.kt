@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
-import com.example.flightsapp.core.data.repositories.userPreferences.local.UserPreferencesSerializer
+import com.example.flightsapp.core.data.repositories.userPreferences.UserPreferencesSerializer
 import com.example.flightsapp.dataStore.UserPreferences
 import dagger.Module
 import dagger.Provides

@@ -9,11 +9,15 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.google.accompanist.systemuicontroller.SystemUiController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorScheme = darkColorScheme(
     primary = Blue700,
@@ -27,19 +31,10 @@ private val LightColorScheme = lightColorScheme(
     tertiary = Teal200,
 )
 
-/* Other default colors to override
-background = Color(0xFFFFFBFE),
-surface = Color(0xFFFFFBFE),
-onPrimary = Color.White,
-onSecondary = Color.White,
-onTertiary = Color.White,
-onBackground = Color(0xFF1C1B1F),
-onSurface = Color(0xFF1C1B1F),
- */
-
 @Composable
 fun FlightsAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
+    systemUiController: SystemUiController = rememberSystemUiController(),
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
@@ -52,6 +47,14 @@ fun FlightsAppTheme(
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
+
+    val customColorsPalette =
+        if (darkTheme) {
+            DarkCustomColorsPalette
+        } else {
+            LightCustomColorsPalette
+        }
+
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
@@ -61,9 +64,20 @@ fun FlightsAppTheme(
         }
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    SideEffect {
+        systemUiController.setStatusBarColor(
+            color = Color.Transparent,
+            darkIcons = true
+        )
+    }
+
+    CompositionLocalProvider(
+        LocalCustomColorsPalette provides customColorsPalette
+    ) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            content = content
+        )
+    }
 }

@@ -1,10 +1,8 @@
 package com.example.flightsapp.ui.screens.signIn.model
 
-import androidx.compose.runtime.Stable
 import com.example.flightsapp.core.common.UiText
 import com.example.flightsapp.ui.screens.signIn.LoginError
 
-@Stable
 data class SignInState(
     val isLoading: Boolean = false,
     val registerError: UiText? = null,

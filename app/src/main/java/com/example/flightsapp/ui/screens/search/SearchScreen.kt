@@ -2,42 +2,108 @@ package com.example.flightsapp.ui.screens.search
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SelectableDates
+import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableLongState
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import com.example.flightsapp.R
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.flightsapp.core.common.DevicePreviews
+import com.example.flightsapp.core.model.Airport
 import com.example.flightsapp.ui.components.BaseCard
-import com.example.flightsapp.ui.components.DefaultButton
-import com.example.flightsapp.ui.screens.search.components.AirportTextField
-import com.example.flightsapp.ui.screens.search.components.DatesFields
 import com.example.flightsapp.ui.screens.search.components.HeaderSection
-import com.example.flightsapp.ui.screens.search.components.TripTypeSelectors
+import com.example.flightsapp.ui.screens.search.components.RangeDatePickerDialog
+import com.example.flightsapp.ui.screens.search.components.SearchContent
+import com.example.flightsapp.ui.screens.search.components.SingleDatePickerDialog
+import java.time.Duration
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+
+private const val DEFAULT_TRIP_LENGTH: Long = 3
 
 @Composable
-fun SearchRoute() {
-    SearchScreen()
+fun SearchRoute(
+    searchViewModel: SearchViewModel = hiltViewModel(),
+    onSettingsClicked: () -> Unit,
+    onSearchClicked: (origin: String, String, Long, Long, Boolean) -> Unit
+) {
+    val searchState = searchViewModel.searchState.collectAsStateWithLifecycle()
+    SearchScreen(
+        searchState = searchState.value,
+        onSettingsClicked = onSettingsClicked,
+        onSearchClicked = onSearchClicked,
+        viewModelCallbacks = searchViewModel::handleInteraction
+    )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun SearchScreen(modifier: Modifier = Modifier) {
-    val fromAirport = remember { mutableStateOf("") }
-    val toAirport = remember { mutableStateOf("") }
+private fun SearchScreen(
+    searchState: SearchState,
+    modifier: Modifier = Modifier,
+    onSettingsClicked: () -> Unit,
+    onSearchClicked: (
+        origin: String,
+        destination: String,
+        departureDate: Long,
+        returnDate: Long,
+        isRoundTrip: Boolean
+    ) -> Unit,
+    viewModelCallbacks: (SearchScreenCallback) -> Unit
+) {
+    val timeNow = Instant.now()
+    val isRoundTrip = rememberSaveable { mutableStateOf(true) }
+    val departureDate = rememberSaveable { mutableLongStateOf(timeNow.toEpochMilli()) }
+    val returnDate = rememberSaveable {
+        mutableLongStateOf(
+            timeNow.plus(Duration.ofDays(DEFAULT_TRIP_LENGTH))
+                .toEpochMilli()
+        )
+    }
 
-    val departureDate = remember { mutableStateOf("23/05/2023") }
-    val returnDate = remember { mutableStateOf("24/05/2023") }
+    val isReturnDateValid = returnDate.longValue >= departureDate.longValue
+    val showDatePicker = remember { mutableStateOf(false) }
+    val timeMidnight = LocalDate.now()
+        .atStartOfDay(ZoneId.systemDefault())
+        .toInstant()
+        .toEpochMilli()
 
-    val isRoundTrip = remember { mutableStateOf(true) }
+    val dateRangePickerState = dateRangePickerState(
+        departureDate = departureDate,
+        returnDate = returnDate,
+        timeMidnight = timeMidnight
+    )
+
+    val singleDatePickerState =
+        singleDatePickerState(departureDate = departureDate, timeMidnight = timeMidnight)
+
+    if (showDatePicker.value) {
+        if (isRoundTrip.value) {
+            RangeDatePickerDialog(
+                showDateRangePicker = { showDatePicker.value = it },
+                dateRangePickerState = dateRangePickerState,
+                departureDate = departureDate,
+                returnDate = returnDate
+            )
+        } else {
+            SingleDatePickerDialog(
+                showDateRangePicker = { showDatePicker.value = it },
+                datePickerState = singleDatePickerState,
+                departureDate = departureDate
+            )
+        }
+    }
 
     Column(
         modifier
@@ -45,48 +111,52 @@ private fun SearchScreen(modifier: Modifier = Modifier) {
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Bottom
     ) {
-        HeaderSection()
+        HeaderSection(onSettingsClicked = onSettingsClicked)
 
-        BaseCard(modifier = Modifier.fillMaxWidth()) {
-            Spacer(modifier = Modifier.height(25.dp))
-
-            TripTypeSelectors(isRoundTrip = isRoundTrip)
-
-            Spacer(modifier = Modifier.height(25.dp))
-
-            AirportTextField(
-                fromAirport = fromAirport.value,
-                label = R.string.search_from_label,
-                icPlaneArriving = R.drawable.ic_plane_departing,
-                onValueChange = { fromAirport.value = it }
+        BaseCard {
+            SearchContent(
+                searchState = searchState,
+                isRoundTrip = isRoundTrip,
+                viewModelCallbacks = viewModelCallbacks,
+                departureDate = departureDate,
+                showDateRangePicker = showDatePicker,
+                returnDate = returnDate,
+                isReturnDateValid = isReturnDateValid,
+                onSearchClicked = onSearchClicked
             )
-
-            Spacer(modifier = Modifier.height(25.dp))
-
-            AirportTextField(
-                fromAirport = toAirport.value,
-                label = R.string.search_to_label,
-                icPlaneArriving = R.drawable.ic_plane_arriving,
-                onValueChange = { fromAirport.value = it }
-            )
-
-            Spacer(modifier = modifier.height(25.dp))
-
-            DatesFields(modifier, departureDate, isRoundTrip, returnDate)
-
-            Spacer(modifier = modifier.height(50.dp))
-
-            DefaultButton(
-                modifier = modifier.fillMaxWidth(),
-                onClick = { /*TODO*/ }
-            ) {
-                Text(text = stringResource(R.string.search_search_flight_button))
-            }
-
-            Spacer(modifier = modifier.height(25.dp))
         }
     }
 }
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun dateRangePickerState(
+    departureDate: MutableLongState,
+    returnDate: MutableLongState,
+    timeMidnight: Long
+) = rememberDateRangePickerState(
+    initialSelectedStartDateMillis = departureDate.longValue,
+    initialSelectedEndDateMillis = returnDate.longValue,
+    selectableDates = object : SelectableDates {
+        override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+            return utcTimeMillis >= timeMidnight
+        }
+    }
+)
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun singleDatePickerState(
+    departureDate: MutableLongState,
+    timeMidnight: Long
+) = rememberDatePickerState(
+    initialSelectedDateMillis = departureDate.longValue,
+    selectableDates = object : SelectableDates {
+        override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+            return utcTimeMillis >= timeMidnight
+        }
+    }
+)
 
 inline fun Modifier.conditional(
     condition: Boolean,
@@ -101,5 +171,34 @@ inline fun Modifier.conditional(
 @DevicePreviews
 @Composable
 private fun SearchScreenPreview() {
-    SearchScreen()
+    SearchScreen(
+        searchState = SearchState(
+            originSuggestions = SearchState.ListState(
+                airportsPrev
+            )
+        ),
+        onSettingsClicked = {},
+        onSearchClicked = { _, _, _, _, _ -> }
+    ) {}
 }
+
+val airportsPrev = listOf(
+    Airport(
+        "ATL",
+        "Atlanta",
+        "United States of America",
+        countryCode = "UK"
+    ),
+    Airport(
+        "ATL",
+        "Atlanta",
+        "United States of America",
+        countryCode = "UK"
+    ),
+    Airport(
+        "ATL",
+        "Atlanta",
+        "United States of America",
+        countryCode = "UK"
+    )
+)

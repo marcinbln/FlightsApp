@@ -1,11 +1,16 @@
 package com.example.flightsapp.core.data.di
 
 import javax.inject.Qualifier
-import kotlin.annotation.AnnotationRetention.RUNTIME
 
+@Target(
+    AnnotationTarget.PROPERTY,
+    AnnotationTarget.VALUE_PARAMETER,
+    AnnotationTarget.FUNCTION,
+    AnnotationTarget.EXPRESSION
+)
 @Qualifier
-@Retention(RUNTIME)
-annotation class Dispatcher(val appDispatcher: AppDispatchers)
+@Retention(AnnotationRetention.SOURCE)
+annotation class Dispatcher(@Suppress("unused") val appDispatcher: AppDispatchers)
 
 enum class AppDispatchers {
     IO

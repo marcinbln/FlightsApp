@@ -1,8 +1,7 @@
 <resources>
-    <string name="app_name">FlightsApp</string>
+    <string name="app_name" translatable="false">FlightsApp</string>
 
     <!--    Splash screen-->
-    <string name="splash_plane_image">plane_image</string>
     <string name="splash_card_splash_title">Please sign in or sign up to confirm &amp; view your itinerary</string>
     <string name="splash_sign_up">Sign Up</string>
     <string name="splash_sign_in">Sign In</string>
@@ -19,10 +18,7 @@
     <!--    Sign up screen-->
     <string name="register_card_title">Tell us about yourself</string>
     <string name="register_name_hint">Full Name</string>
-    <string name="register_email_hint">Email Address</string>
     <string name="register_phone_hint">Phone Number</string>
-    <string name="register_password_hint">Password</string>
-    <string name="register_terms_statement">I agree to the Terms of Services and Privacy Policy</string>
     <string name="register_create_account">Create account</string>
     <string name="register_have_account">Already have an account?</string>
     <string name="register_sign_in">Sign in</string>
@@ -32,9 +28,9 @@
     <string name="input_error_phone">Phone number is incorrect</string>
     <string name="input_error_pass_length">Password should be at least 10 characters long</string>
     <string name="input_error_pass_uppercase">Password should contain at least 1 uppercase letter</string>
-    <string name="input_error_pass_special_char">\"Password should contain at least one of the special characters: . # ! ? \"</string>
+    <string name="input_error_pass_special_char">Password should contain at least one of the special characters: . # ! ?</string>
     <string name="input_error_pass_digit">Password should contain at least 1 digit</string>
-    <string name="error_something_went_wrong">Something went wrong...</string>
+    <string name="error_something_went_wrong">Something went wrong…</string>
 
     <!--    Search screen-->
     <string name="search_hello_title">Hello</string>
@@ -46,5 +42,25 @@
     <string name="search_depart_date_label">Depart</string>
     <string name="search_return_date_label">Return</string>
     <string name="search_search_flight_button">Search flight</string>
+
+    <!--    Settings screen-->
+    <string name="settings_title">Settings</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_dark_mode">Dark mode config</string>
+    <string name="settings_dark_mode_dialog_title">Dark mode setting</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_notifications_on_label">ON</string>
+    <string name="settings_notifications_off_label">OFF</string>
+    <string name="settings_dynamic_colors">Dynamic colors</string>
+    <string name="settings_sign_out">Sign out</string>
+    <string name="dark_mode_config_system_default">System default</string>
+    <string name="dark_mode_config_light">Light</string>
+    <string name="dark_mode_config_dark">Dark</string>
+
+    <!--    Results screen-->
+    <plurals name="stops_format">
+        <item quantity="one">%1$d stop</item>
+        <item quantity="other">%1$d stops</item>
+    </plurals>
 
 </resources>

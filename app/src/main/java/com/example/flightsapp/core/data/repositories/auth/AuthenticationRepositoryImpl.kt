@@ -12,6 +12,7 @@ import javax.inject.Inject
 class AuthenticationRepositoryImpl @Inject constructor() : AuthenticationRepository {
 
     private val auth: FirebaseAuth = Firebase.auth
+    override val userId: String? = auth.currentUser?.uid
 
     override val isLoggedIn: Flow<Boolean> = callbackFlow {
         val authStateListener = FirebaseAuth.AuthStateListener { auth ->
@@ -24,14 +25,15 @@ class AuthenticationRepositoryImpl @Inject constructor() : AuthenticationReposit
     }
 
     override suspend fun login(email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password).await()
+        auth.signInWithEmailAndPassword(email, password)
+            .await()
     }
 
     override suspend fun register(email: String, password: String) {
-        auth.createUserWithEmailAndPassword(email, password).await()
+        auth.createUserWithEmailAndPassword(email, password)
+            .await()
     }
 
-    override fun getCurrentUserId(): String? = auth.currentUser?.uid
 
     override fun logout() = auth.signOut()
 }

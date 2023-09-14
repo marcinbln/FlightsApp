@@ -2,34 +2,58 @@ package com.example.flightsapp.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.flightsapp.core.data.repositories.auth.AuthenticationRepository
 import com.example.flightsapp.navigation.Screen
-import com.google.accompanist.systemuicontroller.SystemUiController
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 
 @Composable
 fun rememberNiaAppState(
     navController: NavHostController = rememberNavController(),
-    systemUiController: SystemUiController = rememberSystemUiController()
+    authenticationRepository: AuthenticationRepository,
+    coroutineScope: CoroutineScope = rememberCoroutineScope(),
 ): FlightsAppState {
-    return remember(navController, systemUiController) {
-        FlightsAppState(navController, systemUiController)
+    return remember(
+        navController,
+        authenticationRepository,
+        coroutineScope
+    ) {
+        FlightsAppState(
+            navController,
+            authenticationRepository,
+            coroutineScope
+        )
     }
 }
 
 @Stable
 class FlightsAppState(
     val navController: NavHostController,
-    val systemUiController: SystemUiController
+    val authenticationRepository: AuthenticationRepository,
+    coroutineScope: CoroutineScope,
 ) {
-    private val currentRoute: String?
-        @Composable get() = navController.currentBackStackEntryAsState().value?.destination?.route
+    val currentScreen = mutableStateOf(Screen.SPLASH)
 
-    val currentScreen: Screen
-        @Composable get() = Screen
-            .values()
-            .find { it.route == currentRoute } ?: Screen.SPLASH
+    val isLoggedIn = authenticationRepository.isLoggedIn
+        .map(Boolean::not)
+        .stateIn(
+            scope = coroutineScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = false,
+        )
+
+    init {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            currentScreen.value = Screen
+                .values()
+                .find { it.route == destination.route } ?: Screen.SPLASH
+        }
+    }
 }

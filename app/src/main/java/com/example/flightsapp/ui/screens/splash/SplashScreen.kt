@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.flightsapp.R
@@ -49,7 +48,7 @@ private fun SplashScreen(
             modifier = modifier
                 .widthIn(max = 640.dp)
                 .fillMaxWidth()
-                .padding(dimensionResource(id = R.dimen.space_l))
+                .padding(42.dp)
                 .weight(1f),
             contentScale = ContentScale.Fit,
             painter = painterResource(id = R.drawable.plane),

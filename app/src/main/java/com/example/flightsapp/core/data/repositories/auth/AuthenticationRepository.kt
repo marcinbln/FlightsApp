@@ -7,5 +7,5 @@ interface AuthenticationRepository {
     suspend fun register(email: String, password: String)
     fun logout()
     val isLoggedIn: Flow<Boolean>
-    fun getCurrentUserId(): String?
+    val userId: String?
 }

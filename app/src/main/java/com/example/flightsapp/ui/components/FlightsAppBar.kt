@@ -1,16 +1,18 @@
 package com.example.flightsapp.ui.components
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.flightsapp.R
 import com.example.flightsapp.navigation.Screen
 import com.example.flightsapp.ui.theme.FlightsAppTheme
@@ -19,29 +21,26 @@ import com.example.flightsapp.ui.theme.FlightsAppTheme
 @Composable
 fun FlightsAppBar(
     navigateUp: () -> Unit,
-    currentScreen: Screen
+    currentScreen: Screen?
 ) {
-    val topAppBarBackgroundColor: Color = if (currentScreen.isTopAppBarTransparent) {
-        Color.Transparent
-    } else {
-        MaterialTheme.colorScheme.background
-    }
-
     TopAppBar(
-        colors = TopAppBarDefaults.smallTopAppBarColors(
-            containerColor = topAppBarBackgroundColor,
-            navigationIconContentColor = Color.Black // Todo change back arrow color based on destination
+        colors = topAppBarColors(
+            containerColor = Color.Transparent,
+            navigationIconContentColor = Color.Black
         ),
         title = {},
         navigationIcon = {
-            if (!currentScreen.isTopLevel) {
-                IconButton(onClick = {
-                    navigateUp()
-                }) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_back_arrow),
-                        contentDescription = null
-                    )
+            if (currentScreen != null) {
+                if (!currentScreen.isTopLevel) {
+                    IconButton(
+                        modifier = Modifier.padding(start = 8.dp),
+                        onClick = navigateUp
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_back_arrow),
+                            contentDescription = null
+                        )
+                    }
                 }
             }
         }

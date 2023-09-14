@@ -24,7 +24,10 @@ import androidx.compose.ui.unit.dp
 import com.example.flightsapp.R
 
 @Composable
-internal fun HeaderSection(modifier: Modifier = Modifier) {
+internal fun HeaderSection(
+    modifier: Modifier = Modifier,
+    onSettingsClicked: () -> Unit
+) {
     Column(modifier = modifier.padding(start = 42.dp, end = 38.dp)) {
         Row(
             modifier = modifier.fillMaxWidth(),
@@ -37,7 +40,7 @@ internal fun HeaderSection(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold
             )
 
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = onSettingsClicked) {
                 Icon(
                     modifier = modifier.size(32.dp),
                     imageVector = Icons.Outlined.Settings,
@@ -58,5 +61,5 @@ internal fun HeaderSection(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun HeaderSectionPreview() {
-    HeaderSection()
+    HeaderSection(onSettingsClicked = {})
 }

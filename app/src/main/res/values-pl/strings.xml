@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="splash_card_splash_title">Załóż konto lub zaloguj się by wyszukać loty</string>
+    <string name="splash_sign_up">Zarejestruj</string>
+    <string name="splash_sign_in">Zaloguj</string>
+    <string name="login_card_title">Witaj z powrotem!</string>
+    <string name="login_sign_in_btn">Zaloguj</string>
+    <string name="login_no_account">Nie masz konta?</string>
+    <string name="login_create_account">Załóż konto</string>
+    <string name="login_password_hint">Hasło</string>
+    <string name="login_email_hint">Adres e-mail</string>
+    <string name="login_forgot_password_button">Zapomniałeś hasła?</string>
+    <string name="register_card_title">Opowiedz o sobie</string>
+    <string name="register_name_hint">Imię</string>
+    <string name="register_phone_hint">Telefon</string>
+    <string name="register_create_account">Utwórz konto</string>
+    <string name="register_have_account">Masz już konto?</string>
+    <string name="register_sign_in">Zaloguj</string>
+    <string name="input_error_empty_name">Pole nie może być puste</string>
+    <string name="input_error_email">E-mail niepoprawny</string>
+    <string name="input_error_phone">Nr telefonu niepoprawny</string>
+    <string name="input_error_pass_length">Hasło powinno zawierać co najmniej 10 znaków</string>
+    <string name="input_error_pass_uppercase">Hasło powinno zawierać co najmniej 1 wielką literę</string>
+    <string name="input_error_pass_special_char">Hasło powinno zawierać co najmneij jeden znak specjalny: : . # ! ?</string>
+    <string name="input_error_pass_digit">Hasło powinno zawierać co najmniej jedną cyfrę</string>
+    <string name="error_something_went_wrong">Coś poszło nie tak…</string>
+    <string name="search_hello_title">Witaj</string>
+    <string name="search_subtitle">Zaplanuj swoją następną podróż</string>
+    <string name="search_round_trip_option">Tam i z powrotem</string>
+    <string name="search_one_way_option">W jedną stronę</string>
+    <string name="search_from_label">Z</string>
+    <string name="search_to_label">Do</string>
+    <string name="search_depart_date_label">Wylot</string>
+    <string name="search_return_date_label">Powrót</string>
+    <string name="search_search_flight_button">Szukaj lotu</string>
+    <string name="settings_title">Ustawienia</string>
+    <string name="settings_language">Język</string>
+    <string name="settings_dark_mode">Tryb nocny</string>
+    <string name="settings_dark_mode_dialog_title">Ustawienia trybu nocnego</string>
+    <string name="settings_notifications">Powiadomienia</string>
+    <string name="settings_notifications_on_label">Wł</string>
+    <string name="settings_notifications_off_label">Wył</string>
+    <string name="settings_dynamic_colors">Dynamiczne kolory</string>
+    <string name="settings_sign_out">Wyloguj</string>
+    <string name="dark_mode_config_system_default">Auto</string>
+    <string name="dark_mode_config_light">Dzień</string>
+    <string name="dark_mode_config_dark">Noc</string>
+
+
+    <!--    Results screen-->
+    <plurals name="stops_format">
+        <item quantity="one">%1$d przesiadka</item>
+        <item quantity="few">%1$d przesiadki</item>
+        <item quantity="many">%1$d przesiadek</item>
+    </plurals>
+</resources>

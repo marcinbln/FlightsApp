@@ -9,10 +9,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.flightsapp.R
 import com.example.flightsapp.ui.theme.Blue500
 import com.example.flightsapp.ui.theme.FlightsAppTheme
 
@@ -23,7 +21,7 @@ fun OutlinedButton(
     content: @Composable () -> Unit
 ) {
     Button(
-        modifier = modifier.heightIn(min = dimensionResource(id = R.dimen.buttonHeight)),
+        modifier = modifier.heightIn(min = 46.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.White,
             contentColor = Color.Black
@@ -38,7 +36,7 @@ fun OutlinedButton(
 
 @Preview(name = "OutlinedButton", showBackground = true)
 @Preview(
-    name = "OutlinedButton night",
+    name = "OutlinedButton dark mode",
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )

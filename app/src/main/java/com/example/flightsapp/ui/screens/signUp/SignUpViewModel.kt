@@ -2,7 +2,7 @@ package com.example.flightsapp.ui.screens.signUp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.flightsapp.core.common.AppResult
+import com.example.flightsapp.core.common.WorkResult
 import com.example.flightsapp.core.domain.useCases.RegisterUseCase
 import com.example.flightsapp.ui.screens.signUp.inputValidation.FormValidator
 import com.example.flightsapp.ui.screens.signUp.inputValidation.FormValidator.passwordRequirements
@@ -59,6 +59,8 @@ class SignUpViewModel @Inject constructor(
         if (errors.isNotEmpty()) {
             _registerData.update { it.copy(inputError = errors.first()) }
             return false
+        } else {
+            _registerData.update { it.copy(inputError = null) }
         }
 
         return true
@@ -75,8 +77,8 @@ class SignUpViewModel @Inject constructor(
                     phone = userInput.phone
                 )
             ) {
-                is AppResult.Success -> _registerData.update { it.copy(registrationComplete = true) }
-                is AppResult.Error -> _registerData.update { it.copy(registrationError = result.error) }
+                is WorkResult.Success -> _registerData.update { it.copy(registrationComplete = true) }
+                is WorkResult.Error -> _registerData.update { it.copy(registrationError = result.error) }
             }
 
             _registerData.update { it.copy(isLoading = false) }

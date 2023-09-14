@@ -3,18 +3,16 @@ package com.example.flightsapp.ui.components
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.flightsapp.R
 import com.example.flightsapp.ui.theme.FlightsAppTheme
 
@@ -26,20 +24,17 @@ fun BaseCard(
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface,
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 2.dp
         ),
         shape = RoundedCornerShape(
-            topStart = dimensionResource(id = R.dimen.cardview_radius),
-            topEnd = dimensionResource(id = R.dimen.cardview_radius)
+            topStart = 20.dp,
+            topEnd = 20.dp
         )
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = modifier
-                .padding(horizontal = dimensionResource(id = R.dimen.space_xxl))
-        ) {
-            content()
-        }
+        content()
     }
 }
 

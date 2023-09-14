@@ -10,12 +10,12 @@ plugins {
 
 android {
     namespace = "com.example.flightsapp"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.flightsapp"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -31,10 +31,13 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+
         sourceCompatibility = JavaVersion.VERSION_18
         targetCompatibility = JavaVersion.VERSION_18
     }
@@ -56,6 +59,10 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    androidResources {
+        generateLocaleConfig = true
+    }
 }
 
 dependencies {
@@ -68,12 +75,13 @@ dependencies {
     implementation(libs.ui)
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
-    implementation(libs.material3)
+    implementation(libs.androidx.material3.android)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.core.splashscreen)
 
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.appcompat)
     kapt(libs.hilt.compiler)
 
     implementation(libs.protobuf.kotlin.lite)
@@ -81,8 +89,17 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.common.ktx)
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.messaging)
 
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.1")
+    detektPlugins(libs.detekt.plugins)
+
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+    implementation(libs.accompanist.permissions)
+
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
 
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -100,7 +117,9 @@ kapt {
 
 protobuf {
     protoc {
-        artifact = libs.protobuf.protoc.get().toString()
+        artifact = libs.protobuf.protoc
+            .get()
+            .toString()
     }
     generateProtoTasks {
         all().forEach { task ->
@@ -119,7 +138,8 @@ protobuf {
 }
 
 detekt {
+    autoCorrect = true
     toolVersion = libs.versions.detekt.get()
     config.setFrom(file("config/detekt/detekt.yml"))
-    buildUponDefaultConfig = true
+    buildUponDefaultConfig = false
 }

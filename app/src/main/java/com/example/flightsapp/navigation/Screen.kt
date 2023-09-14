@@ -1,39 +1,61 @@
 package com.example.flightsapp.navigation
 
 import com.example.flightsapp.R
+import com.example.flightsapp.ui.screens.results.navigation.Argument
 
 enum class Screen(
-    val route: String,
+    val baseRoute: String,
     val backgroundDrawable: Int,
     val isTopLevel: Boolean = false,
-    val isTopAppBarTransparent: Boolean
+    private val arguments: List<Argument> = emptyList()
 ) {
     LOADING(
-        route = "loading_route",
+        baseRoute = "loading_route",
         backgroundDrawable = R.drawable.app_background_1,
-        isTopLevel = true,
-        isTopAppBarTransparent = true
+        isTopLevel = true
     ),
     SPLASH(
-        route = "splash_route",
+        baseRoute = "splash_route",
         backgroundDrawable = R.drawable.app_background_1,
-        isTopLevel = true,
-        isTopAppBarTransparent = true
+        isTopLevel = true
     ),
     SIGN_IN(
-        route = "signIn_route",
+        baseRoute = "signIn_route",
         backgroundDrawable = R.drawable.app_background_2,
-        isTopAppBarTransparent = true
     ),
     SIGN_UP(
-        route = "signUp_route",
+        baseRoute = "signUp_route",
         backgroundDrawable = R.drawable.app_background_2,
-        isTopAppBarTransparent = true
     ),
     SEARCH(
-        route = "search_route",
+        baseRoute = "search_route",
         backgroundDrawable = R.drawable.app_background_3,
-        isTopLevel = true,
-        isTopAppBarTransparent = true
-    )
+        isTopLevel = true
+    ),
+    Settings(
+        baseRoute = "settings_route",
+        backgroundDrawable = R.drawable.app_background_2,
+    ),
+    Results(
+        baseRoute = "results_route",
+        backgroundDrawable = R.drawable.app_background_2,
+        arguments = listOf(
+            Argument.FromArg,
+            Argument.ToArg,
+            Argument.DepartureDate,
+            Argument.ReturnDate,
+            Argument.IsRoundTrip
+        )
+    );
+
+    val route: String
+        get() {
+            return if (arguments.isNotEmpty()) {
+                val routeBuilder = StringBuilder(baseRoute)
+                arguments.forEach { routeBuilder.append("/{${it.name}}") }
+                routeBuilder.toString()
+            } else {
+                baseRoute
+            }
+        }
 }
