@@ -34,7 +34,7 @@ import com.example.flightsapp.R
 import com.example.flightsapp.core.common.toDurationFormatted
 import com.example.flightsapp.core.common.toSeparateHourAndMin
 import com.example.flightsapp.core.model.FlightOffer
-import com.example.flightsapp.ui.screens.results.FlightOfferPreviewDataProvider
+import com.example.flightsapp.core.common.ui.FlightOfferPreviewDataProvider
 import com.example.flightsapp.ui.theme.Blue700
 import com.example.flightsapp.ui.theme.FlightsAppTheme
 

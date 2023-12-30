@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.example.flightsapp.ui.components.BaseCard
 import com.example.flightsapp.core.model.FlightOffer
-import com.example.flightsapp.ui.screens.results.FlightOfferPreviewDataProvider
+import com.example.flightsapp.core.common.ui.FlightOfferPreviewDataProvider
 import com.example.flightsapp.ui.screens.results.ResultsState
 import com.example.flightsapp.ui.theme.FlightsAppTheme
 

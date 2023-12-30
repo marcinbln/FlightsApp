@@ -1,4 +1,4 @@
-package com.example.flightsapp.ui.screens.results
+package com.example.flightsapp.core.common.ui
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.example.flightsapp.core.model.FlightOffer

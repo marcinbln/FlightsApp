@@ -38,6 +38,7 @@ import com.example.flightsapp.R
 import com.example.flightsapp.core.common.DevicePreviews
 import com.example.flightsapp.core.common.UiText
 import com.example.flightsapp.core.common.showToast
+import com.example.flightsapp.core.common.ui.FlightOfferPreviewDataProvider
 import com.example.flightsapp.core.common.ui.LoadingIndicator
 import com.example.flightsapp.core.model.FlightOffer
 import com.example.flightsapp.ui.screens.results.components.ResultCardReturn
