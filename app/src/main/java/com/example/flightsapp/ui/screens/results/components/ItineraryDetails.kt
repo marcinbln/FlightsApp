@@ -24,10 +24,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.example.flightsapp.core.model.FlightOffer
 import com.example.flightsapp.ui.screens.results.ResultsState
-import com.example.flightsapp.ui.screens.results.sample
+import com.example.flightsapp.ui.screens.results.FlightOfferPreviewDataProvider
 import com.example.flightsapp.ui.theme.FlightsAppTheme
 
 @Composable
@@ -94,17 +95,19 @@ internal fun ItineraryDetails(
     device = "spec:width=1440px,height=2960px,dpi=570"
 )
 @Composable
-private fun ResultCardPreview() {
+private fun ResultCardPreview(
+    @PreviewParameter(FlightOfferPreviewDataProvider::class) flightOffer: FlightOffer
+) {
     FlightsAppTheme {
         ItineraryDetails(
-            itinerary = sample.itinerary[0],
+            itinerary = flightOffer.itinerary[0],
             resultsState = ResultsState(
                 isLoading = false,
                 fromAirport = "Ber",
                 toAirport = "Lon",
                 fromDate = "10 Nov 2023",
                 toDate = "11 Nov 2023",
-                resultsList = listOf(sample, sample)
+                resultsList = listOf(flightOffer, flightOffer)
             ),
             name = "Return"
 

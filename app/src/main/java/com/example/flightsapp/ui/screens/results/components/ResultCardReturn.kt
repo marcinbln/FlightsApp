@@ -28,12 +28,13 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.example.flightsapp.R
 import com.example.flightsapp.core.common.toDurationFormatted
 import com.example.flightsapp.core.common.toSeparateHourAndMin
 import com.example.flightsapp.core.model.FlightOffer
-import com.example.flightsapp.ui.screens.results.sample
+import com.example.flightsapp.ui.screens.results.FlightOfferPreviewDataProvider
 import com.example.flightsapp.ui.theme.Blue700
 import com.example.flightsapp.ui.theme.FlightsAppTheme
 
@@ -211,8 +212,10 @@ internal fun Itinerary(
 
 @Preview(showBackground = true, device = "spec:width=1440px,height=2960px,dpi=570")
 @Composable
-private fun ResultCardPreview() {
+private fun ResultCardPreview(
+    @PreviewParameter(FlightOfferPreviewDataProvider::class) flightOffer: FlightOffer
+) {
     FlightsAppTheme {
-        ResultCardReturn(item = sample, isRoundTrip = false, onClick = {})
+        ResultCardReturn(item = flightOffer, isRoundTrip = false, onClick = {})
     }
 }

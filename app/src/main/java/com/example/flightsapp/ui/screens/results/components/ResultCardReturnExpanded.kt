@@ -10,11 +10,12 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.example.flightsapp.ui.components.BaseCard
 import com.example.flightsapp.core.model.FlightOffer
+import com.example.flightsapp.ui.screens.results.FlightOfferPreviewDataProvider
 import com.example.flightsapp.ui.screens.results.ResultsState
-import com.example.flightsapp.ui.screens.results.sample
 import com.example.flightsapp.ui.theme.FlightsAppTheme
 
 @Composable
@@ -63,17 +64,19 @@ internal fun ResultCardReturnExpanded(
 
 @Preview(showBackground = true, backgroundColor = 0xFF2BB6EC, device = "spec:width=1440px,height=2960px,dpi=570")
 @Composable
-private fun ResultCardPreview() {
+private fun ResultCardPreview(
+    @PreviewParameter(FlightOfferPreviewDataProvider::class) flightOffer: FlightOffer
+) {
     FlightsAppTheme {
         ResultCardReturnExpanded(
-            flightOffer = sample,
+            flightOffer = flightOffer,
             resultsState = ResultsState(
                 isLoading = false,
                 fromAirport = "Ber",
                 toAirport = "Lon",
                 fromDate = "10 Nov 2023",
                 toDate = "11 Nov 2023",
-                resultsList = listOf(sample, sample)
+                resultsList = listOf(flightOffer, flightOffer)
             ),
             onClose = {}
         )

@@ -17,13 +17,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.example.flightsapp.R
 import com.example.flightsapp.core.common.toDurationFormatted
 import com.example.flightsapp.core.common.toFormattedTime
 import com.example.flightsapp.core.common.toSeparateHourAndMin
 import com.example.flightsapp.core.model.FlightOffer
-import com.example.flightsapp.ui.screens.results.segmentSample
+import com.example.flightsapp.ui.screens.results.FlightOfferPreviewDataProvider
 import com.example.flightsapp.ui.theme.Blue700
 import com.example.flightsapp.ui.theme.FlightsAppTheme
 
@@ -107,10 +108,12 @@ internal fun ExpandableContent(
     device = "spec:width=1440px,height=2960px,dpi=570"
 )
 @Composable
-private fun ResultCardPreview() {
+private fun ResultCardPreview(
+    @PreviewParameter(FlightOfferPreviewDataProvider::class) flightOffer: FlightOffer
+) {
     FlightsAppTheme {
         ExpandableContent(
-            segment = segmentSample
+            segment = flightOffer.itinerary.first().segments.first()
         )
     }
 }
